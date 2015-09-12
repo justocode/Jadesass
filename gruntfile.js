@@ -2,27 +2,34 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-includes');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['clean', 'jade', 'sass', 'includes:js']);
+  grunt.registerTask('default', ['clean', 'copy', 'jade', 'sass', 'includes:js']);
 
   grunt.initConfig({
     clean: {
       options: {
         force: true
       },
-      dist: ['dist']
+      dist: ['dist'],
+      libraries: ['dist/assets/libraries'],
+      images: ['dist/assets/images'],
     },
     sass: {
-      options: {
-        sourceMap: true,
-        outputStyle: 'expanded'
-      },
       compile: {
-        files: {
-          'dist/styles/main.css': 'src/styles/main.sass'
-        }
+        options: {
+          sourceMap: true,
+          outputStyle: 'expanded'
+        },
+        files: [{
+          expand: true,
+          cwd: 'source/styles',
+          src: ['*.sass'],
+          dest: 'dist/assets/styles',
+          ext: '.css'
+        }]
       }
     },
     jade: {
@@ -32,7 +39,7 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'src',
+          cwd: 'source',
           src: ['*.jade'],
           dest: 'dist',
           ext: '.html'
@@ -46,10 +53,26 @@ module.exports = function(grunt) {
           silent: true
         },
         files: [{
-          cwd: 'src/scripts',
-          src: 'main.js',
-          dest: 'dist/scripts',
+          expand: true,
+          cwd: 'source/scripts',
+          src: '*.js',
+          dest: 'dist/assets/scripts',
+          ext: '.js'
         }]
+      }
+    },
+    copy: {
+      libraries: {
+        expand: true,
+        cwd: 'source/libraries',
+        src: ['**'],
+        dest: 'dist/assets/libraries'
+      },
+      images: {
+        expand: true,
+        cwd: 'source/images',
+        src: ['**'],
+        dest: 'dist/assets/images'
       }
     }
   });
