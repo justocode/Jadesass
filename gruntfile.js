@@ -1,10 +1,11 @@
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['clean', 'jade', 'sass']);
+  grunt.registerTask('default', ['clean', 'jade', 'sass', 'includes:js']);
 
   grunt.initConfig({
     clean: {
@@ -35,6 +36,19 @@ module.exports = function(grunt) {
           src: ['*.jade'],
           dest: 'dist',
           ext: '.html'
+        }]
+      }
+    },
+    includes: {
+      js: {
+        options: {
+          includeRegexp: /^(\s*)@include\s+"(\S+)";\s*$/,
+          silent: true
+        },
+        files: [{
+          cwd: 'src/scripts',
+          src: 'main.js',
+          dest: 'dist/scripts',
         }]
       }
     }
