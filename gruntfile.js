@@ -2,13 +2,14 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-includes');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('default', ['copy', 'jade', 'sass', 'includes:javascript', 'connect', 'watch']);
+  grunt.registerTask('default', ['copy', 'jade', 'sass', 'autoprefixer', 'includes:javascript', 'connect', 'watch']);
 
   grunt.initConfig({
     clean: {
@@ -36,13 +37,27 @@ module.exports = function(grunt) {
     sass: {
       compile: {
         options: {
-          sourceMap: true,
+          sourceMap: false,
           outputStyle: 'expanded'
         },
         files: [{
           expand: true,
           cwd: 'source/styles',
           src: ['*.sass'],
+          dest: 'dist/assets/styles',
+          ext: '.css'
+        }]
+      }
+    },
+    autoprefixer: {
+      dist: {
+        options: {
+          browsers: ['last 3 versions', '> 1%', 'ie 8', 'ie 7']
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/assets/styles',
+          src: ['*.css'],
           dest: 'dist/assets/styles',
           ext: '.css'
         }]
@@ -88,7 +103,7 @@ module.exports = function(grunt) {
       },
       sass: {
         files: ['source/styles/**/*.sass'],
-        tasks: ['sass'],
+        tasks: ['sass', 'autoprefixer'],
         options: {
           spawn: false,
           livereload: true
