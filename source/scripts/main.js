@@ -1,3 +1,1 @@
-//@include "includes/demo.js";
-
-console.log('Hello');
+@include "includes/general.js";
