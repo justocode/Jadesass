@@ -2,9 +2,12 @@
 Using Jade &amp; Sass for Front-end Development
 
 # Installation
-`git clone https://github.com/Maxvien/Jadesass.git`
-`cd Jadesass`
-`$ npm install`
+For installation, please follow these steps:
+Step 1: `$ git clone https://github.com/Maxvien/Jadesass.git`
+Step 2: `$ cd Jadesass`
+Step 3: `$ npm install`
+Step 4: `$ npm install -g grunt-cli`
 
 # Usage
-`grunt`
+For running project, please run command below:
+`$ grunt`
