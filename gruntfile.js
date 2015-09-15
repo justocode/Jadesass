@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('default', ['copy', 'jade', 'sass', 'autoprefixer', 'includes:javascript', 'connect', 'watch']);
+  grunt.registerTask('default', ['clean:dist', 'copy', 'jade', 'sass', 'autoprefixer', 'includes:javascript', 'connect', 'watch']);
 
   grunt.initConfig({
     clean: {
@@ -38,6 +38,7 @@ module.exports = function(grunt) {
       compile: {
         options: {
           noCache: true,
+          sourcemap: 'none',
           style: 'expanded'
         },
         files: [{
