@@ -1,10 +1,10 @@
 module.exports = function(grunt) {
 
-  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-includes');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -37,8 +37,8 @@ module.exports = function(grunt) {
     sass: {
       compile: {
         options: {
-          sourceMap: false,
-          outputStyle: 'expanded'
+          noCache: true,
+          style: 'expanded'
         },
         files: [{
           expand: true,
